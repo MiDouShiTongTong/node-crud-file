@@ -1,0 +1,56 @@
+<%- include('../component/head.html'); %>
+<%- include('../component/top-nav.html'); %>
+
+<div class="container-fluid">
+	<div class="row">
+		<%- include('../component/sidebar-nav.html'); %>
+		<main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+			<div class="breadcrumb mt-3">
+				<li class="breadcrumb-item active">
+					学生管理
+				</li>
+			</div>
+			<div class="mb-3">
+				<a href="/student/insert" class="btn btn-success btn-sm">添加</a>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-striped table-sm">
+					<thead>
+					<tr>
+						<th>序号</th>
+						<th>性名</th>
+						<th>性别</th>
+						<th>年龄</th>
+						<th>兴趣</th>
+						<th>操作</th>
+					</tr>
+					</thead>
+					<tbody>
+					<% students.forEach(function (student) { %>
+						<tr>
+							<td><%= student.id; %></td>
+							<td><%= student.name; %></td>
+							<td><%= student.gender != null ? student.gender == 0 ? '男' : '女' : ''; %></td>
+							<td><%= student.age; %></td>
+							<td><%= student.hobby; %></td>
+							<td>
+								<a class="btn btn-primary btn-sm" href="/student/update?id=<%= student.id;  %>">修改</a>
+								<a class="btn btn-primary btn-sm delete" href="/student/delete?id=<%= student.id;  %>">删除</a>
+							</td>
+						</tr>
+					<% }); %>
+					</tbody>
+				</table>
+			</div>
+		</main>
+	</div>
+</div>
+<%- include('../component/foot.html'); %>
+
+<script>
+	$('.delete').on('click', () => {
+	    if (!window.confirm('确定删除?')) {
+            return false;
+	    }
+	});
+</script>

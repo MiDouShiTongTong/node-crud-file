@@ -1,0 +1,65 @@
+<%- include('../component/head.html'); %>
+<%- include('../component/top-nav.html'); %>
+
+<div class="container-fluid">
+	<div class="row">
+		<%- include('../component/sidebar-nav.html'); %>
+		<main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+			<div class="breadcrumb mt-3">
+				<li class="breadcrumb-item">
+					<a href="/student">学生管理</a>
+				</li>
+				<li class="breadcrumb-item active">
+					<%= locals.student ? '修改学生' : '新增学生' %>
+				</li>
+			</div>
+			<div>
+				<form method="post" action="<%= locals.student ? '/student/update' : '/student/insert'; %>">
+					<div class="form-group d-flex">
+						<label for="name" class="col-sm-2 text-md-right col-form-label">性名</label>
+						<div class="col-sm-10">
+							<input type="text" id="name" name="name" class="form-control" value="<%= locals.student ? student.name : ''; %>">
+						</div>
+					</div>
+					<div class="form-group d-flex">
+						<label class="col-sm-2 text-md-right col-form-label">性别</label>
+						<div class="col-sm-10 d-flex align-items-center">
+							<div class="custom-control custom-radio custom-control-inline">
+								<input type="radio" id="gender0" name="gender" value="0" class="custom-control-input" <%= locals.student ? student.gender == 0 ? 'checked' : '' : ''; %>>
+								<label class="custom-control-label" for="gender0">男</label>
+							</div>
+							<div class="custom-control custom-radio custom-control-inline">
+								<input type="radio" id="gender1" name="gender" value="1" class="custom-control-input" <%= locals.student ? student.gender == 1 ? 'checked' : '' : ''; %>>
+								<label class="custom-control-label" for="gender1">女</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group d-flex">
+						<label for="age" class="col-sm-2 text-md-right col-form-label">年龄</label>
+						<div class="col-sm-10">
+							<input type="text" id="age" name="age" class="form-control" value="<%= locals.student ? student.age : ''; %>">
+						</div>
+					</div>
+					<div class="form-group d-flex">
+						<label for="hobby" class="col-sm-2 text-md-right col-form-label">兴趣</label>
+						<div class="col-sm-10">
+							<textarea type="text" id="hobby" name="hobby" class="form-control" rows="5"><%= locals.student ? student.hobby : ''; %></textarea>
+						</div>
+					</div>
+					<div class="form-group d-flex">
+						<label for="hobby" class="col-sm-2 text-md-right col-form-label"></label>
+						<div class="col-sm-10">
+							<button type="submit" class="btn btn-primary">提交</button>
+						</div>
+					</div>
+					<div class="d-none">
+						<% if (locals.student) { %>
+							<input type="hidden" name="id" value="<%= student.id %>">
+						<% } %>
+					</div>
+				</form>
+			</div>
+		</main>
+	</div>
+</div>
+<%- include('../component/foot.html'); %>
